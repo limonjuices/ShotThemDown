@@ -36,6 +36,7 @@ function collisions()
 {
     bullet_collision();
     player_collision();
+    player_collision_ennemy();
     player_falling();
 }
 
@@ -67,7 +68,48 @@ function player_collision()
         player1.graphic.position.y -= y;
     if ( y > HEIGHT )
         player1.graphic.position.y -= y - HEIGHT;
+    if ( x < 0 )
+        player1.graphic.position.x -= x;
+    
 
+
+    var x = ennemy1.graphic.position.x + WIDTH / 2;
+    var y = ennemy1.graphic.position.y + HEIGHT / 2;
+
+    if ( x > WIDTH )
+    {
+        ennemy1.graphic.position.x -= x - WIDTH;
+        ennemy1.direction = 52 ;   
+    }
+    if ( y < 0 )
+    {
+        ennemy1.graphic.position.y -= y;
+        ennemy1.direction -= 36;        
+        
+    }   
+    if ( y > HEIGHT )
+    {
+        ennemy1.graphic.position.y -= y - HEIGHT;
+        ennemy1.direction -= 25;        
+        
+    }   
+    if ( x < 0 )
+    {
+         ennemy1.graphic.position.x -= x;
+         ennemy1.direction -= 12;        
+    }
+ 
+
+    
+}
+function player_collision_ennemy()
+{
+    var xp = player1.graphic.position.x + WIDTH / 2;
+    var yp = player1.graphic.position.y + HEIGHT / 2;
+    var xe = ennemy1.graphic.position.x + WIDTH / 2;
+    var ye = ennemy1.graphic.position.y + HEIGHT / 2;
+    if(( xp < xe + 10 && xp > xe - 10 ) && (yp < ye + 10 && yp > ye - 10))
+        player1.dead();
 }
 
 function player_falling()
